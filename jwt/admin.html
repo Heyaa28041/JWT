@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+</head>
+<body>
+  <h1>Admin Panel</h1>
+  <div id="message"></div>
+
+  <script>
+    // Helper: Base64 decode
+    function base64Decode(str) {
+      try {
+        return atob(str);
+      } catch {
+        return "";
+      }
+    }
+
+    // Get cookie value
+    function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? match[2] : null;
+    }
+
+    // Double decode the token
+    const tokenDouble = getCookie("token");
+    if (!tokenDouble) {
+      document.getElementById("message").innerText = "No token found.";
+    } else {
+      const onceDecoded = base64Decode(tokenDouble);
+      const twiceDecoded = base64Decode(onceDecoded);
+
+      // JWT format: header.payload.signature
+      const parts = twiceDecoded.split(".");
+      if (parts.length === 3) {
+        const payload = JSON.parse(base64Decode(parts[1]));
+        if (payload.role === "admin") {
+          document.getElementById("message").innerText = "Welcome Admin! Flag: HEYAAJWTMASTER";
+        } else {
+          document.getElementById("message").innerText = "Access Denied. You're not admin.";
+        }
+      } else {
+        document.getElementById("message").innerText = "Invalid token.";
+      }
+    }
+  </script>
+</body>
+</html>
