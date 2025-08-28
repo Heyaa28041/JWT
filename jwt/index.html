@@ -1,17 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Welcome</title>
+  <title>Login</title>
+  <style>
+    body {
+      background: #eaf1fb;
+      color: #222;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      color: #2a72d4;
+      margin-bottom: 28px;
+      letter-spacing: 1.5px;
+    }
+    form {
+      background: #fff;
+      padding: 32px 40px;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 320px;
+    }
+    label {
+      margin-bottom: 4px;
+      color: #444;
+      font-size: 1em;
+    }
+    input[type="text"], input[type="password"] {
+      padding: 10px;
+      border: 1px solid #b0c4de;
+      border-radius: 5px;
+      font-size: 1em;
+      margin-bottom: 10px;
+      outline: none;
+      transition: border 0.2s;
+    }
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: #2a72d4;
+    }
+    button {
+      background: #2a72d4;
+      color: #fff;
+      border: none;
+      padding: 12px 0;
+      border-radius: 5px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+    button:hover {
+      background: #1856a7;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome, Guest</h1>
-  <p>Something tells me the admin page is hidden...</p>
+  <h1>Login</h1>
+  <form id="loginForm">
+    <label>Username:</label><br>
+    <input type="text" id="username" required><br><br>
+    <label>Password:</label><br>
+    <input type="password" id="password" required><br><br>
+    <button type="submit">Login</button>
+  </form>
 
   <script>
-    const token = "WlhsS2FHSkhZMmxQYVVwSlZYcEpNVTVwU1hOSmJsSTFZME5KTmtscmNGaFdRMG81TG1WNVNqRmpNbFo1WW0xR2RGcFRTVFpKYldReFdsaE9NRWxwZDJsamJUbHpXbE5KTmtsdFpERmFXRTR3U1c0d0xqWm9Ra3hJVDFsS1ZXMDBOa0kwT0V4RWRGSllTSFZTYXpnMVh6WnRlV05DY1dWZmFsSmtRVUZJWnpRPQ==";
-    
-    // Set cookie for challenge
-    document.cookie = `token=${token}; path=/; SameSite=Lax`;
+
+    const guestToken = "WlhsS2FHSkhZMmxQYVVwSlZYcEpNVTVwU1hOSmJsSTFZME5KTmtscmNGaFdRMG81TG1WNVNqRmpNbFo1WW0xR2RGcFRTVFpKYldReFdsaE9NRWxwZDJsamJUbHpXbE5KTmtsdFpERmFXRTR3U1c0d0xqWm9Ra3hJVDFsS1ZXMDBOa0kwT0V4RWRGSllTSFZTYXpnMVh6WnRlV05DY1dWZmFsSmtRVUZJWnpRPQ==";
+
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+
+      document.cookie = `token=${guestToken}; path=/; SameSite=Lax`;
+      alert("Logged in as Guest! Try finding the admin page...");
+      window.location.href = "/welcome.html";
+    });
   </script>
 </body>
 </html>
